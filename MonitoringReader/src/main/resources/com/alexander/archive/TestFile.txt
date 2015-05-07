@@ -1,0 +1,2 @@
+Calderdale GF,Time,Celsius(°C),High Alarm,Low Alarm,Humidity(%rh),High Alarm rh,Low Alarm rh,Dew Point(°C),Serial Number
+1,2015-03-11 11:42:05,16.0,25.0,12.0,55.5,60.0,40.0,7.1,010015613

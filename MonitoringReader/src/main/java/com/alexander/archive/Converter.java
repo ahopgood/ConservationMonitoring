@@ -1,10 +1,12 @@
 package com.alexander.archive;
 
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -12,12 +14,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Scanner;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Name;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -32,9 +34,9 @@ public class Converter {
 
 	//1. x Twenty four hour date format in excel format
 	//2. x Filename extension format issue on xlsx
-	//3. Consolidate the conversion into a single entry point
+	//3. x Consolidate the conversion into a single entry point
 	//4. Reading args from the command line
-	//5. Sheet name in xls and xlsx to reflect the filename
+	//5. x Sheet name in xls and xlsx to reflect the filename
 	
 	//Extract the following fields: Time(fields[1]), Celsius(C)(fields[2]) Humidity(%rh)(fields[5]) from a csv formatted text file
 	//Into a list of reading objects
@@ -48,11 +50,19 @@ public class Converter {
 	private StringBuilder errorBuilder = new StringBuilder();
 	
 	public static void main(String[] args) throws IOException {
+		if (args == null || args.length != 1){
+			System.out.println("\nCorrect syntax is java -jar ./Converter.jar {source_file_path}");
+			System.out.println("\nWhere:");
+			System.out.println("\tsource_file_path - specifies the full location of the source file to convert into excel files and charts e.g. C:\\Documents\\2015-04-13 Readings.txt");
+			System.exit(-1);
+		}
 		//Extract the filename, discard the extension
+		
+//		String filename = "C:\\Users\\Alex\\Desktop\\Calderdale GF 15-04-2015.txt";
+		
 		Converter converter = new Converter();
-		String filename = "C:\\Users\\Alex\\Desktop\\Calderdale GF 15-04-2015.txt";
-		System.out.println(filename);
-		converter.convert(filename);
+		System.out.println("Attempting to convert file:"+args[0]);
+		converter.convert(args[0]);
 	}
 	
 	//Read from the .txt that is in the correct form, csv
@@ -92,19 +102,7 @@ public class Converter {
 		}
 		return readings;
 	}
-	
-	public String extractFileName(String filename){
-		if (filename != null){
-			filename = filename.trim();
-			String[] filenameSplit = filename.split("\\.");
-			if (filenameSplit.length > 0){
-				return filenameSplit[0];
-			}
-			return "";
-		}
-		return "";
-	}
-	
+		
 	public List<Reading> readFromCSV(String filename) throws IOException {
 		CSVReader reader = new CSVReader(new FileReader(filename));
 		List<Reading> readings = null;
@@ -120,7 +118,7 @@ public class Converter {
 	
 	public void writeToXLS(List<Reading> readings, String filename) throws IOException{
 		if (readings != null){
-			filename = this.extractFileName(filename);
+			filename = FilenameUtils.extractFileName(filename);
 			Workbook wb = new HSSFWorkbook();
 			String sheetName = "Calderdale GF 15-04-2015";//filename;
 		    this.writeToSheet(sheetName, wb, readings);
@@ -141,8 +139,8 @@ public class Converter {
 	public void writeToXLSX(List<Reading> readings, String filename) throws IOException{
 		Workbook wb = null;
 //		String sheetName = "Calderdale GF 15-04-2015";//filename;
-		String sheetName = getSheetName(filename);
-		filename = this.extractFileName(filename);
+		String sheetName = FilenameUtils.getSheetName(filename);
+		filename = FilenameUtils.extractFileName(filename);
 		try {
 			wb = this.populateChart(filename, sheetName, readings);
 		} catch (InvalidFormatException e) {
@@ -213,20 +211,6 @@ public class Converter {
 		return errorBuilder.toString();
 	}
 	
-	public static final String DEFAULT_SHEETNAME = "default";
-	private String sep = System.getProperty("file.separator");
-	
-	public String getSheetName(String filepath){
-		if (filepath == null){
-			return DEFAULT_SHEETNAME;
-		}
-		if (filepath.trim().isEmpty()){
-			return DEFAULT_SHEETNAME;
-		}
-		filepath = this.extractFileName(filepath);
-		String args[] = filepath.split("\\"+sep);
-		return args[args.length-1];
-	}
 }
 
 

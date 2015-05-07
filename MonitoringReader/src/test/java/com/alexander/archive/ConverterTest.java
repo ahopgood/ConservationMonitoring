@@ -129,44 +129,6 @@ public class ConverterTest {
 		assertEquals("Temperature should match", temperature, readings.get(0).getTemperature());
 		assertEquals("Humidity should match", humidity, readings.get(0).getHumidity());	
 	}
-	
-	@Test
-	public void testExtractFileName_givenNull(){
-		Converter converter = new Converter();
-		assertEquals("", converter.extractFileName(null));
-	}
-	
-	@Test
-	public void testExtractFileName_givenEmptyString(){
-		Converter converter = new Converter();
-		assertEquals("", converter.extractFileName(""));
-		
-	}
-	
-	@Test
-	public void testExtractFileName_givenWhitespaceString(){
-		Converter converter = new Converter();
-		assertEquals("", converter.extractFileName(" "));
-		assertEquals("", converter.extractFileName("	"));
-		assertEquals("", converter.extractFileName("\n"));
-		assertEquals("", converter.extractFileName("\t"));
-	}
-
-	@Test
-	public void testExtractFileName_givenInvalidFilenameFormat(){
-		String filename = "testfile";
-		Converter converter = new Converter();
-		assertEquals(filename, converter.extractFileName(filename+".txt.txt"));
-		assertEquals(filename, converter.extractFileName(filename+".txtxt"));
-		assertEquals(filename, converter.extractFileName(filename));
-	}
-
-	@Test
-	public void testExtractFileName(){
-		Converter converter = new Converter();
-		assertEquals("testfile", converter.extractFileName("testfile.txt"));
-		
-	}
 
 	@Test
 	public void testReadFromCSV() throws Exception{
@@ -329,58 +291,7 @@ public class ConverterTest {
 		assertTrue(output.isFile());
 //		output.delete();
 //		Calderdale GF 15-04-2015
-	}
-	private String sep = System.getProperty("file.separator");
-	private String sheetName = "Some file name";
-	private String fileWithExtension = sheetName+Converter.XLS;
-	private String fileWithPath = "C:\\blah\\blah\\"+sheetName;
-	private String pathOnly = "C:\\blah\\blah\\";
-	private String fileWithPathAndExtension = "C:\\blah\\blah\\"+sheetName+Converter.XLS;
-	
-	@Test
-	public void testGetSheetName_givenNoExtensionOrPath(){
-		Converter converter = new Converter();
-		assertEquals(sheetName, converter.getSheetName(sheetName));
-	}
-	
-	@Test
-	public void testGetSheetName_givenExtension(){
-		Converter converter = new Converter();
-		assertEquals(sheetName, converter.getSheetName(fileWithExtension));
-	}
-
-	@Test
-	public void testGetSheetName_givenPath(){
-		Converter converter = new Converter();
-		assertEquals(sheetName, converter.getSheetName(fileWithPath));
-	}
-
-	@Test
-	public void testGetSheetName_givenPathAndExtension(){
-		Converter converter = new Converter();
-		assertEquals(sheetName, converter.getSheetName(fileWithPathAndExtension));
-	}
-	
-	@Test
-	public void testGetSheetName_pathOnlyWithTrailingSep(){
-		Converter converter = new Converter();
-		assertEquals(Converter.DEFAULT_SHEETNAME, converter.getSheetName(pathOnly));
-	}
-
-	@Test
-	public void testGetSheetName_nullString(){
-		Converter converter = new Converter();
-		assertEquals(Converter.DEFAULT_SHEETNAME, converter.getSheetName(null));
-	}
-	
-	@Test
-	public void testGetSheetName_givenEmptyString(){
-		Converter converter = new Converter();
-		assertEquals(Converter.DEFAULT_SHEETNAME, converter.getSheetName(""));
-		assertEquals(Converter.DEFAULT_SHEETNAME, converter.getSheetName("   "));
-		assertEquals(Converter.DEFAULT_SHEETNAME, converter.getSheetName("\t"));
-	}
-	
+	}	
 	
 	
 	
