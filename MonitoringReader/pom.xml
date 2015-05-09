@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.alexander.archive</groupId>
   <artifactId>WakefieldArchive</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.1</version>
   <packaging>jar</packaging>
   <build>
   	<finalName>Converter-${version}</finalName>
@@ -28,6 +28,11 @@
       		</archive>
       	</configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>2.5.2</version>
+      </plugin>      
       <plugin>
       	<groupId>org.apache.maven.plugins</groupId>
       	<artifactId>maven-shade-plugin</artifactId>
@@ -91,4 +96,10 @@
   	</dependency>
 
   </dependencies>
+  <scm>
+  	<url>scm:git:file://C:/Personal/Git Checkouts/ConservationMonitoring</url>
+  	<connection>scm:git:file://C:/Personal/Git Checkouts/ConservationMonitoring</connection>
+  	<developerConnection>scm:git:file://C:/Personal/Git Checkouts/ConservationMonitoring</developerConnection>
+  	<tag>WakefieldArchive-0.0.1</tag>
+  </scm>
 </project>
