@@ -16,6 +16,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
+import org.apache.log4j.BasicConfigurator;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
@@ -59,7 +60,7 @@ public class Converter {
 		//Extract the filename, discard the extension
 		
 //		String filename = "C:\\Users\\Alex\\Desktop\\Calderdale GF 15-04-2015.txt";
-		
+		BasicConfigurator.configure();
 		Converter converter = new Converter();
 		System.out.println("Attempting to convert file:"+args[0]);
 		converter.convert(args[0]);
@@ -189,8 +190,8 @@ public class Converter {
 	
 	public Workbook populateChart(String filename, String sheetName, List<Reading> readings) throws InvalidFormatException, FileNotFoundException, IOException{
 		URL url = this.getClass().getResource("ExampleChart1.xlsx");
-		Workbook wb = new XSSFWorkbook(OPCPackage.open(new FileInputStream(url.getFile().replace("%20", " ")))); // or sample.xls
 		
+		Workbook wb = new XSSFWorkbook(OPCPackage.open(url.openStream()));
 		this.writeToSheet(sheetName, wb, readings);
 		
 		Name timeRange = wb.getName(TIME_RANGE);

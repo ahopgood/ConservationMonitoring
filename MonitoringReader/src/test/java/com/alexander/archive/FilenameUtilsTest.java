@@ -1,6 +1,6 @@
 package com.alexander.archive;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.net.URL;
 
@@ -68,20 +68,16 @@ public class FilenameUtilsTest {
 	
 	@Test
 	public void testExtractFileName_givenNull(){
-		Converter converter = new Converter();
 		assertEquals("", FilenameUtils.extractFileName(null));
 	}
 	
 	@Test
 	public void testExtractFileName_givenEmptyString(){
-		Converter converter = new Converter();
 		assertEquals("", FilenameUtils.extractFileName(""));
-		
 	}
 	
 	@Test
 	public void testExtractFileName_givenWhitespaceString(){
-		Converter converter = new Converter();
 		assertEquals("", FilenameUtils.extractFileName(" "));
 		assertEquals("", FilenameUtils.extractFileName("	"));
 		assertEquals("", FilenameUtils.extractFileName("\n"));
@@ -91,7 +87,6 @@ public class FilenameUtilsTest {
 	@Test
 	public void testExtractFileName_givenInvalidFilenameFormat(){
 		String filename = "testfile";
-		Converter converter = new Converter();
 		assertEquals(filename, FilenameUtils.extractFileName(filename+".txt.txt"));
 		assertEquals(filename, FilenameUtils.extractFileName(filename+".txtxt"));
 		assertEquals(filename, FilenameUtils.extractFileName(filename));
@@ -99,7 +94,6 @@ public class FilenameUtilsTest {
 
 	@Test
 	public void testExtractFileName(){
-		Converter converter = new Converter();
 		assertEquals("testfile", FilenameUtils.extractFileName("testfile.txt"));
 		
 	}

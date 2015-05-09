@@ -1,6 +1,9 @@
 package com.alexander.archive;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,8 +13,10 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.log4j.BasicConfigurator;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class ConverterTest {
@@ -19,6 +24,11 @@ public class ConverterTest {
 	Calendar cal = Calendar.getInstance();	
 	Double temperature = new Double(12.5);
 	Double humidity = new Double(24.6);
+	
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
+		BasicConfigurator.configure();
+	}
 	
 	@Before
 	public void setUp() throws Exception {
