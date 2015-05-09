@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.alexander.archive</groupId>
   <artifactId>WakefieldArchive</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.2-SNAPSHOT</version>
   <packaging>jar</packaging>
   <build>
   	<finalName>Converter-${version}</finalName>
@@ -100,6 +100,6 @@
   	<url>scm:git:file://C:/Personal/Git Checkouts/ConservationMonitoring</url>
   	<connection>scm:git:file://C:/Personal/Git Checkouts/ConservationMonitoring</connection>
   	<developerConnection>scm:git:file://C:/Personal/Git Checkouts/ConservationMonitoring</developerConnection>
-  	<tag>WakefieldArchive-0.0.1</tag>
+  	<tag>scm:git:file://C:/Personal/Git Checkouts/ConservationMonitoring</tag>
   </scm>
 </project>
