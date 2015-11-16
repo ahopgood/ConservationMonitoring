@@ -139,7 +139,6 @@ public class Converter {
 	
 	public void writeToXLSX(List<Reading> readings, String filename) throws IOException{
 		Workbook wb = null;
-//		String sheetName = "Calderdale GF 15-04-2015";//filename;
 		String sheetName = FilenameUtils.getSheetName(filename);
 		filename = FilenameUtils.extractFileName(filename);
 		try {
